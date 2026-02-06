@@ -10,6 +10,5 @@ def test_generate_script_fallback(monkeypatch: object) -> None:
         video_type="Auto",
         short_duration=3,
         full_duration=15,
-        scene_count=3,
     )
     assert "OPENAI_API_KEY" in script

@@ -1,18 +1,17 @@
 # Telugu YouTube AI Agent
 
-An open-source automation pipeline to generate cinematic Telugu YouTube videos from a topic prompt. The agent produces story scripts with scenes, narration, visuals, subtitles, metadata, thumbnails, and optionally uploads to YouTube.
+An open-source automation pipeline to generate Telugu YouTube videos from a topic prompt. The agent produces scripts, narration, visuals, metadata, thumbnails, and optionally uploads to YouTube.
 
 ## Features
 
 - FastAPI service + CLI runner
-- Story-style Telugu scripts with scenes + dialogue
-- Scene-wise timestamps
-- AI image generation per scene
-- Ken Burns motion on visuals (animated feel)
-- Background music + optional SFX mixing
-- Telugu subtitles burned into video
-- Cinematic intro & outro
-- Mobile-first 9:16 output for Shorts + Full videos
+- Telugu script generation with OpenAI
+- Google TTS (gTTS) narration
+- MoviePy video assembly with FFmpeg
+- Thumbnail creation via Pillow
+- SEO metadata generation
+- YouTube Data API uploader with encrypted OAuth token support
+- Validation command for TTS/video/upload prerequisites
 - Logging, retries, and graceful fallbacks
 
 ## Project Structure
@@ -49,20 +48,19 @@ cp .env.example .env
 ```
 
 Required keys:
-- `OPENAI_API_KEY` for script, metadata, and image generation
+- `OPENAI_API_KEY` for script + metadata generation
 - `TTS_LANGUAGE=te` and `TTS_VOICE=co.in` for Telugu narration
-- Optional: `BGM_PATH` and `SFX_PATHS` (comma-separated) for audio layers
 - YouTube credentials when using upload
 
 ## Usage
 
-### CLI (Generate cinematic artifacts)
+### CLI (Generate artifacts)
 
 ```bash
-python -m app.main run "Topic: Indian Space Missions" \
-  --video-type short \
+python -m app.main run "Topic: Artificial Intelligence" \
+  --video-type Auto \
   --short-duration 3 \
-  --full-duration 20 \
+  --full-duration 15 \
   --style "Simple Telugu"
 ```
 
@@ -79,7 +77,7 @@ Send a POST request to `/generate`:
 ```json
 {
   "topic": "AI in Education",
-  "video_type": "short",
+  "video_type": "Auto",
   "short_duration": 3,
   "full_duration": 15,
   "category": "General",
